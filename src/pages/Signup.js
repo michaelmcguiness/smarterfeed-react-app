@@ -1,25 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Input, Button, Alert } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
+import { AuthContext } from "../context/auth";
 import { useForm } from "../util/hooks";
 import WithLoading from "../util/WithLoading";
 
 function Signup(props) {
+  const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
-  const initialState = {
-    username: "",
-    email: "",
-    password: "",
-  };
+  const initialState = { username: "", email: "", password: "" };
 
   const { onFinish, formData } = useForm(registerCallback, initialState);
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(_, result) {
-      console.log(result);
+    update(_, { data: { register: userData } }) {
+      context.login(userData);
       props.history.push("/");
     },
     onError(err) {

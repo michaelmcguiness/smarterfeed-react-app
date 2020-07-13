@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Space } from "antd";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/auth";
 
 const Container = styled.div`
   display: flex;
@@ -11,21 +12,31 @@ const Container = styled.div`
 `;
 
 const MyMenu = (props) => {
-  const size = "middle";
-  return (
-    <Container>
-      <Space>
-        <Link to="/login">
-          <Button size={size}>Log In</Button>
-        </Link>
-        <Link to="/signup">
-          <Button type="primary" size={size}>
-            Sign Up
-          </Button>
-        </Link>
-      </Space>
-    </Container>
+  const { user, logout } = useContext(AuthContext);
+
+  const menu = user ? (
+    <Space>
+      <Link to="/submit">
+        <Button type="text">Submit</Button>
+      </Link>
+      <Button type="text" onClick={logout}>
+        Log Out
+      </Button>
+    </Space>
+  ) : (
+    <Space>
+      <Link to="/login">
+        <Button size="middle">Log In</Button>
+      </Link>
+      <Link to="/signup">
+        <Button type="primary" size="middle">
+          Sign Up
+        </Button>
+      </Link>
+    </Space>
   );
+
+  return <Container>{menu}</Container>;
 };
 
 export default MyMenu;
