@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 
 import { AuthContext } from "../context/auth";
 import { useForm } from "../util/hooks";
-import WithLoading from "../util/WithLoading";
+import WithLoading from "../components/util/WithLoading";
 
 function Signup(props) {
   const context = useContext(AuthContext);

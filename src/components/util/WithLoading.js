@@ -1,5 +1,6 @@
 import React from "react";
 import { Spin } from "antd";
+import PropTypes from "prop-types";
 
 const WithLoading = ({ loading, children }) => {
   const markup = loading ? (
@@ -11,6 +12,10 @@ const WithLoading = ({ loading, children }) => {
   );
 
   return markup;
+};
+
+WithLoading.propTypes = {
+  loading: PropTypes.bool.isRequired,
 };
 
 export default WithLoading;

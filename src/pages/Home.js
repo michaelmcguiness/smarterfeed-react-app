@@ -1,11 +1,12 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import { List, Spin } from "antd";
+import { List } from "antd";
 import moment from "moment";
 
 import UpvoteButton from "../components/Post/UpvoteButton";
 import CommentButton from "../components/Post/CommentButton";
+import WithLoading from "../components/util/WithLoading";
+import { FETCH_POSTS_QUERY } from "../util/graphql";
 
 // use react-infinite scroller (see demo: https://ant.design/components/list/)
 
@@ -21,60 +22,29 @@ function Home() {
   );
 
   return (
-    <div>
-      {loading ? (
-        <div>
-          <Spin />
-        </div>
-      ) : (
-        <List
-          itemLayout="horizontal"
-          dataSource={posts}
-          renderItem={(item) => (
-            <List.Item>
-              <UpvoteButton upvoteCount={item.upvoteCount} />
-              <List.Item.Meta
-                title={
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    {item.title}
-                  </a>
-                }
-                description={`${getTopDomain(item.url)} | ${moment(
-                  item.createdAt
-                ).fromNow(true)} ago`}
-              />
-              <CommentButton commentCount={item.commentCount} />
-            </List.Item>
-          )}
-        />
-      )}
-    </div>
+    <WithLoading loading={loading}>
+      <List
+        itemLayout="horizontal"
+        dataSource={posts}
+        renderItem={(item) => (
+          <List.Item>
+            <UpvoteButton upvoteCount={item.upvoteCount} />
+            <List.Item.Meta
+              title={
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  {item.title}
+                </a>
+              }
+              description={`${getTopDomain(item.url)} | ${moment(
+                item.createdAt
+              ).fromNow(true)} ago`}
+            />
+            <CommentButton commentCount={item.commentCount} />
+          </List.Item>
+        )}
+      />
+    </WithLoading>
   );
 }
-
-const FETCH_POSTS_QUERY = gql`
-  {
-    getPosts {
-      id
-      url
-      title
-      tag
-      username
-      createdAt
-      score
-      upvoteCount
-      upvotes {
-        username
-      }
-      commentCount
-      comments {
-        id
-        username
-        createdAt
-        body
-      }
-    }
-  }
-`;
 
 export default Home;

@@ -11,7 +11,7 @@ import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Submit from "./pages/Submit";
+import NewPost from "./pages/NewPost";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/signup" component={Signup} />
-          <PrivateRoute exact path="/submit" component={Submit} />
+          <PrivateRoute exact path="/submit" component={NewPost} />
         </Layout>
       </Router>
     </AuthProvider>
