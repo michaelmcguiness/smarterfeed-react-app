@@ -26,20 +26,20 @@ function Home() {
       <List
         itemLayout="horizontal"
         dataSource={posts}
-        renderItem={(item) => (
+        renderItem={(post) => (
           <List.Item>
-            <UpvoteButton upvoteCount={item.upvoteCount} />
+            <UpvoteButton post={post} />
             <List.Item.Meta
               title={
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  {item.title}
+                <a href={post.url} target="_blank" rel="noopener noreferrer">
+                  {post.title}
                 </a>
               }
-              description={`${getTopDomain(item.url)} | ${moment(
-                item.createdAt
+              description={`${getTopDomain(post.url)} | ${moment(
+                post.createdAt
               ).fromNow(true)} ago`}
             />
-            <CommentButton commentCount={item.commentCount} />
+            <CommentButton post={post} />
           </List.Item>
         )}
       />

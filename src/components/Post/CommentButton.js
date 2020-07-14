@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { CommentOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -9,23 +10,20 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const handleClick = () => {
-  console.log("take to comments");
-};
-
-const CommentButton = ({ commentCount }) => {
+const CommentButton = ({ post: { commentCount, id } }) => {
   return (
-    <Button
-      type="text"
-      onClick={handleClick}
-      icon={
-        <Container>
-          <CommentOutlined style={{ fontSize: "18px" }} />
-          {commentCount}
-        </Container>
-      }
-      style={{ height: "45px", width: "45px", marginLeft: "10px" }}
-    />
+    <Link to={`/post/${id}`}>
+      <Button
+        type="text"
+        icon={
+          <Container>
+            <CommentOutlined style={{ fontSize: "18px" }} />
+            {commentCount}
+          </Container>
+        }
+        style={{ height: "45px", width: "45px", marginLeft: "10px" }}
+      />
+    </Link>
   );
 };
 

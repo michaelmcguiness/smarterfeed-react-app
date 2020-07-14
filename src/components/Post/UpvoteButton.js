@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/react-hooks";
 import { Button } from "antd";
 import { UpOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import gql from "graphql-tag";
+import { AuthContext } from "../../context/auth";
 
 const Container = styled.div`
   display: flex;
@@ -9,15 +13,25 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const handleClick = () => {
-  console.log("upvote post");
-};
+const UpvoteButton = ({ post: { id, upvoteCount, upvotes } }) => {
+  const { user } = useContext(AuthContext);
 
-const UpvoteButton = ({ upvoteCount }) => {
-  return (
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    if (user && upvotes.find((upvote) => upvote.username === user.username)) {
+      setLiked(true);
+    } else setLiked(false);
+  }, [user, upvotes]);
+
+  const [upvotePost] = useMutation(UPVOTE_POST_MUTATION, {
+    variables: { postId: id },
+  });
+
+  const upvoteButton = user ? (
     <Button
-      type="text"
-      onClick={handleClick}
+      onClick={upvotePost}
+      type={user && liked ? "link" : "text"}
       icon={
         <Container>
           <UpOutlined />
@@ -26,7 +40,35 @@ const UpvoteButton = ({ upvoteCount }) => {
       }
       style={{ height: "45px", width: "45px", marginRight: "10px" }}
     />
+  ) : (
+    <Link to="/login">
+      <Button
+        type="text"
+        icon={
+          <Container>
+            <UpOutlined />
+            {upvoteCount}
+          </Container>
+        }
+        style={{ height: "45px", width: "45px", marginRight: "10px" }}
+      />
+    </Link>
   );
+
+  return upvoteButton;
 };
+
+const UPVOTE_POST_MUTATION = gql`
+  mutation upvotePost($postId: ID!) {
+    upvotePost(postId: $postId) {
+      id
+      upvotes {
+        id
+        username
+      }
+      upvoteCount
+    }
+  }
+`;
 
 export default UpvoteButton;

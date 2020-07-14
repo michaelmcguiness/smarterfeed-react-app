@@ -9,7 +9,7 @@ import { FETCH_POSTS_QUERY } from "../util/graphql";
 
 const NewPost = (props) => {
   const [errors, setErrors] = useState({});
-  const initialState = { title: "", url: "", tag: "FINANCE" };
+  const initialState = { title: "", url: "", tag: "NEWS" };
 
   const { onFinish, formData } = useForm(createPostCallback, initialState);
 
@@ -34,7 +34,11 @@ const NewPost = (props) => {
   return (
     <WithLoading loading={loading}>
       <div className="form-container">
-        <Form onFinish={onFinish} initialValues={{ tag: initialState.tag }}>
+        <Form
+          onFinish={onFinish}
+          initialValues={{ tag: initialState.tag }}
+          layout="vertical"
+        >
           <h1>Add a New Post</h1>
           <Form.Item
             label="Url"
@@ -64,9 +68,9 @@ const NewPost = (props) => {
             ]}
           >
             <Select>
+              <Select.Option value="NEWS">News</Select.Option>
               <Select.Option value="FINANCE">Finance</Select.Option>
               <Select.Option value="TECHNOLOGY">Technology</Select.Option>
-              <Select.Option value="NEWS">News</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item>
