@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Select, Input, Button } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
@@ -8,12 +8,11 @@ import { useForm } from "../util/hooks";
 import { FETCH_POSTS_QUERY } from "../util/graphql";
 
 const NewPost = (props) => {
-  const [errors, setErrors] = useState({});
   const initialState = { title: "", url: "", tag: "NEWS" };
 
   const { onFinish, formData } = useForm(createPostCallback, initialState);
 
-  const [createPost, { error, loading }] = useMutation(CREATE_POST_MUTATION, {
+  const [createPost, { loading }] = useMutation(CREATE_POST_MUTATION, {
     variables: formData,
     update(proxy, result) {
       const data = proxy.readQuery({

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import { UpOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import gql from "graphql-tag";
@@ -33,10 +33,12 @@ const UpvoteButton = ({ post: { id, upvoteCount, upvotes } }) => {
       onClick={upvotePost}
       type={user && liked ? "link" : "text"}
       icon={
-        <Container>
-          <UpOutlined />
-          {upvoteCount}
-        </Container>
+        <Tooltip title="Upvote Post">
+          <Container>
+            <UpOutlined />
+            {upvoteCount}
+          </Container>
+        </Tooltip>
       }
       style={{ height: "45px", width: "45px", marginRight: "10px" }}
     />

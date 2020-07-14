@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NewPost from "./pages/NewPost";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/signup" component={Signup} />
           <PrivateRoute exact path="/submit" component={NewPost} />
+          <Route exact path="/posts/:postId" component={SinglePost} />
         </Layout>
       </Router>
     </AuthProvider>

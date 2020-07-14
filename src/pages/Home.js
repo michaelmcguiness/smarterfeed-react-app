@@ -1,20 +1,15 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { List } from "antd";
+import { List, Tooltip } from "antd";
 import moment from "moment";
 
 import UpvoteButton from "../components/Post/UpvoteButton";
 import CommentButton from "../components/Post/CommentButton";
 import WithLoading from "../components/util/WithLoading";
 import { FETCH_POSTS_QUERY } from "../util/graphql";
+import { getTopDomain } from "../util/helperFunctions";
 
 // use react-infinite scroller (see demo: https://ant.design/components/list/)
-
-function getTopDomain(url) {
-  const a = document.createElement("a");
-  a.href = url;
-  return a.hostname;
-}
 
 function Home() {
   const { loading, data: { getPosts: posts } = [] } = useQuery(
@@ -31,13 +26,15 @@ function Home() {
             <UpvoteButton post={post} />
             <List.Item.Meta
               title={
-                <a href={post.url} target="_blank" rel="noopener noreferrer">
-                  {post.title}
-                </a>
+                <Tooltip title={post.url}>
+                  <a href={post.url} target="_blank" rel="noopener noreferrer">
+                    {post.title}
+                  </a>
+                </Tooltip>
               }
-              description={`${getTopDomain(post.url)} | ${moment(
-                post.createdAt
-              ).fromNow(true)} ago`}
+              description={`${post.username} • ${getTopDomain(
+                post.url
+              )} • ${moment(post.createdAt).fromNow(true)} ago`}
             />
             <CommentButton post={post} />
           </List.Item>
