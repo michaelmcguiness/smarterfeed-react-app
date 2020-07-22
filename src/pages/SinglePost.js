@@ -59,7 +59,7 @@ const SinglePost = (props) => {
             </h4>
             <h5>{`${commentCount} Comments`}</h5>
             {comments.map((comment, index) => (
-              <Comment comment={comment} key={index} />
+              <Comment comment={comment} postId={id} key={index} />
             ))}
           </div>
         </div>

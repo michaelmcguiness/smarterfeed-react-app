@@ -23,6 +23,7 @@ const NewPost = (props) => {
       proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
       formData.title = "";
       formData.url = "";
+      props.history.push("/");
     },
   });
 

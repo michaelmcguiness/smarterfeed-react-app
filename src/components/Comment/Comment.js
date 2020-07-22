@@ -9,8 +9,7 @@ const Comment = ({ postId, comment }) => {
   const { user } = useContext(AuthContext);
 
   const [deleteComment] = useMutation(DELETE_COMMENT_MUTATION, {
-    update() {},
-    variables: { commentId: comment.id },
+    variables: { postId, commentId: comment.id },
   });
 
   const commentActions =
@@ -23,6 +22,7 @@ const Comment = ({ postId, comment }) => {
           </Tooltip>,
         ]
       : null;
+
   return (
     <AntComment
       author={comment.username}
