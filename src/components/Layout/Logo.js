@@ -9,6 +9,7 @@ const Logo = () => {
         height="30px"
         src={LogoImage}
         style={{ marginRight: "5px" }}
+        alt="smarterfeed logo"
       />
       <h3 style={{ margin: 0 }}>SmarterFeed.io</h3>
     </div>
