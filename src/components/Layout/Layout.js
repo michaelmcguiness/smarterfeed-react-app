@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
   max-width: 650px;
   margin: auto;
+  margin-top: 20px;
 `;
 
 const Navbar = styled.div`
