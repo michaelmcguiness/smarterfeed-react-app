@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Menu from "./Menu";
-import { PageHeader } from "antd";
+import Logo from "./Logo";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
     <Container>
       <Navbar>
         <Link to="/">
-          <PageHeader title="SmarterFeed.io" />
+          <Logo />
         </Link>
         <Menu />
       </Navbar>
