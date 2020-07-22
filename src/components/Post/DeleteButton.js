@@ -23,7 +23,7 @@ const DeleteButton = ({ postId, username, ...props }) => {
   });
 
   const deleteButton =
-    user.username === username ? (
+    user && user.username === username ? (
       <Popconfirm
         title="Are you sure delete this post?"
         onConfirm={deletePost}

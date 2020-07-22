@@ -13,9 +13,9 @@ const Comment = ({ postId, comment }) => {
   });
 
   const commentActions =
-    user.username === comment.username
+    user && user.username === comment.username
       ? [
-          <Tooltip key="delete-comment" title="Delete">
+          <Tooltip key="delete-comment" title="Delete Comment">
             <span onClick={deleteComment} style={{ color: "red" }}>
               Delete
             </span>
